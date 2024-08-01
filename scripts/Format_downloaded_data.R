@@ -8,11 +8,11 @@
 library(GEOquery)
 
 # Get source files from GEO "GSE173839" and extract the tar file
-getGEOSuppFiles("GSE173839")
-untar("GSE173839/GSE173839_RAW.tar", exdir = "GSE173839")
+download.file("https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE173839&format=file&file=GSE173839_ISPY2_DurvalumabOlaparibArm_biomarkers.csv.gz", 
+              destfile = "source data/GSE173839_ISPY2_DurvalumabOlaparibArm_biomarkers.csv.gz")
 
 # Read and format clinical data
-clin <- read.csv(gzfile("GSE173839/GSE173839_ISPY2_DurvalumabOlaparibArm_biomarkers.csv.gz")) # dim 105 x 20
+clin <- read.csv(gzfile("source data/GSE173839_ISPY2_DurvalumabOlaparibArm_biomarkers.csv.gz")) # dim 105 x 20
 
 # Set patient column
 colnames(clin)[colnames(clin) == "ResearchID"] <- "patient"
@@ -24,7 +24,10 @@ clin$patient <- paste0("X", clin$patient)
 write.table(clin, "files/CLIN.txt", quote = FALSE, sep = "\t", row.names = FALSE)
 
 # Read and process expression data
-expr <- read.table(gzfile("GSE173839/GSE173839_ISPY2_AgilentGeneExp_durvaPlusCtr_FFPE_meanCol_geneLevel_n105.txt.gz"), header = TRUE) # dim 21508 x 106
+download.file("https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE173839&format=file&file=GSE173839_ISPY2_AgilentGeneExp_durvaPlusCtr_FFPE_meanCol_geneLevel_n105.txt.gz", 
+              destfile = "source data/GSE173839_ISPY2_AgilentGeneExp_durvaPlusCtr_FFPE_meanCol_geneLevel_n105.txt.gz")
+
+expr <- read.table(gzfile("source data/GSE173839_ISPY2_AgilentGeneExp_durvaPlusCtr_FFPE_meanCol_geneLevel_n105.txt.gz"), header = TRUE) # dim 21508 x 106
 
 # Set Rownames as gene names
 rownames(expr) <- expr$GeneName
