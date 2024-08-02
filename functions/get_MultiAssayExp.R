@@ -21,7 +21,7 @@ get_MultiAssayExp <- function(study, input_dir, expr_with_counts_isoforms=FALSE)
   #input_dir = "~/BHK lab/ICB/ICB_Wolf/files/"
   
   #add
-  data <- read_delim("~/BHK lab/ICB/ICB_Wolf2/files/DATASET_LOAD_INFO.csv", delim = ";",quote = ";", escape_double = FALSE, trim_ws = TRUE)
+  data <- read_delim("files/DATASET_LOAD_INFO.csv", delim = ";",quote = ";", escape_double = FALSE, trim_ws = TRUE)
   colnames(data) <- gsub("\"", "", names(data))
   data <- data %>% mutate(across(everything(), ~str_replace_all(.x, "\"", "")))
   
