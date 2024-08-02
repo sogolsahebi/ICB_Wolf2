@@ -44,8 +44,6 @@ clin <- annotate_tissue(clin=clin, study='Wolf2', annotation_tissue= annotation_
 # Set survival unit to NA Missing survival PFS/OS.
 clin$survival_unit <- NA
 
-colnames(clin)[colnames(clin) == "ResearchID"] <- "patient"
-
 # Set control groups as Paclitaxel, as mentioned in GSE173839.
 clin$drug_type[clin$drug_type == "control"] <- "Paclitaxel"
 
